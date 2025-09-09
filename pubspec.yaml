@@ -1,0 +1,59 @@
+name: txng
+description: "Truy xuất nguồn gốc"
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 2.9.7+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  camera: ^0.10.6
+  cupertino_icons: ^1.0.8
+  flutter_dotenv: ^5.1.0
+  flutter_html: ^3.0.0
+  font_awesome_flutter: ^10.5.0
+  go_router: ^7.0.1
+  google_fonts: ^5.0.0
+  http: ^1.1.0
+  image_picker: ^1.1.2
+  intl: ^0.20.0
+  mobile_scanner: ^4.0.0
+  permission_handler: ^11.3.0
+  shared_preferences: ^2.1.2
+#  image_picker: ^1.0.4
+  image_cropper: ^8.0.1
+  path_provider: ^2.1.1
+  device_info_plus: ^11.2.0
+  flutter_debouncer: ^2.0.0
+#  google_maps_flutter: ^2.5.2
+  flutter_map: ^8.0.0
+  latlong2: ^0.9.1
+  cached_network_image: ^3.4.1
+  url_launcher: ^6.3.1
+  multi_select_flutter: ^4.1.3
+  flutter_launcher_icons: ^0.14.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+    uses-material-design: true
+    assets:
+     - lib/assets/images/logo.png
+     - lib/assets/images/logo-login.png
+     - lib/assets/images/default-avt.png
+     - lib/assets/img.png
+     - lib/assets/
+     - lib/assets/images/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "lib/assets/images/logo-login.png"
