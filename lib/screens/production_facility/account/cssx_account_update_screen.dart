@@ -340,7 +340,7 @@ class _AccountUpdateScreenState extends State<CSSXAccountUpdateScreen> {
                 }
                 return null;
               },
-              readOnly: true,
+              // readOnly: true,
             ),
             const SizedBox(height: 16),
             _buildTextField(

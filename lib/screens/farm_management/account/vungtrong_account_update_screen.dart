@@ -339,7 +339,7 @@ class _AccountUpdateScreenState extends State<AccountUpdateScreen> {
                 }
                 return null;
               },
-              readOnly: true,
+              // readOnly: true,
             ),
             const SizedBox(height: 16),
             _buildTextField(
