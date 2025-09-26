@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-// Import các màn hình cần thiết
 import 'login_screen.dart';
-// import 'list_post_screen.dart';
 
 class OptionLoginScreen extends StatelessWidget {
   const OptionLoginScreen({super.key});
 
   Future<void> _navigateToLogin(BuildContext context, String roleType) async {
+    final granted = await _requestPermissions(context);
+    if (!granted) return;
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('loginOption_type', roleType);
 
@@ -19,6 +21,31 @@ class OptionLoginScreen extends StatelessWidget {
         builder: (_) => LoginScreen(roleType: roleType),
       ),
     );
+  }
+
+  Future<bool> _requestPermissions(BuildContext context) async {
+    final cameraStatus = await Permission.camera.request();
+    final photosStatus = await Permission.photos.request();
+
+    if (cameraStatus.isDenied ||
+        cameraStatus.isPermanentlyDenied ||
+        photosStatus.isDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Ứng dụng cần quyền Camera và Thư viện để tiếp tục.",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      if (cameraStatus.isPermanentlyDenied ||
+          photosStatus.isPermanentlyDenied) {
+        openAppSettings();
+      }
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -41,7 +68,8 @@ class OptionLoginScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                   child: Column(
                     children: [
                       Image.asset(
@@ -97,9 +125,10 @@ class OptionLoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Nút Tin tức ở phía dưới
+              // Nút Tin tức
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                padding:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 child: SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
@@ -179,7 +208,8 @@ class OptionLoginScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           onTap: () => _navigateToLogin(context, roleType),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            padding:
+            const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Row(
               children: [
                 Container(
@@ -194,7 +224,7 @@ class OptionLoginScreen extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.black87,
